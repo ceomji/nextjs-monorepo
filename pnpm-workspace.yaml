@@ -1,3 +1,19 @@
+# Security overrides live in the root package.json under "pnpm.overrides".
+# Each key is a version range that `pnpm audit` reported as vulnerable.
+# Each value is the release installed in its place.
+#
+# Most replacements stay on the same major version the parent package
+# already accepts (for example js-yaml 4.1.0 is replaced with 4.3.2).
+#
+# The one major-version jump is every minimatch below 11.0.3 -> 11.0.3.
+# Advisory GHSA-g3hv-75wg-m249 is fixed only in minimatch 11.0.1 or newer.
+# ESLint 9 still requests minimatch 3, and typescript-eslint 8.72 still
+# requests minimatch 10. Both call sites used in this repo still exist
+# on minimatch 11: `require("minimatch").Minimatch` (ESLint) and
+# `require("minimatch").minimatch()` (typescript-eslint). The legacy
+# `@eslint/eslintrc` default import is not on the flat-config path these
+# apps use. Direct dependencies such as next and turbo are bumped in the
+# package.json that declares them, not here.
 packages:
   - "apps/*"
   - "packages/*"
