@@ -1,5 +1,8 @@
 import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
+import { Card } from "@repo/ui/card";
+import { FormField } from "@repo/ui/form-field";
+import { Input } from "@repo/ui/input";
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
@@ -63,9 +66,26 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <Button appName="docs" className={styles.secondary}>
-          Open alert
-        </Button>
+        <section className="ui-preview" aria-label="Shared components">
+          <div className="ui-preview-actions">
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="primary" disabled>
+              Disabled
+            </Button>
+          </div>
+          <Card title="Shared card">
+            Both apps render this container from the shared kit.
+          </Card>
+          <FormField
+            id="display-name"
+            label="Display name"
+            error="Name is required."
+          >
+            <Input name="display-name" />
+          </FormField>
+        </section>
       </main>
       <footer className={styles.footer}>
         <a
