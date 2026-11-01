@@ -1,20 +1,21 @@
-"use client";
+import { type ComponentProps, type JSX } from "react";
 
-import { ReactNode } from "react";
+type ButtonProps = Omit<ComponentProps<"button">, "type"> & {
+  variant?: "primary" | "secondary" | "ghost";
+  type?: "button" | "submit";
+};
 
-interface ButtonProps {
-  children: ReactNode;
-  className?: string;
-  appName: string;
-}
-
-export const Button = ({ children, className, appName }: ButtonProps) => {
+export function Button({
+  variant = "primary",
+  type = "button",
+  className,
+  ...props
+}: ButtonProps): JSX.Element {
   return (
     <button
-      className={className}
-      onClick={() => alert(`Hello from your ${appName} app!`)}
-    >
-      {children}
-    </button>
+      type={type}
+      className={`ui-button ui-button-${variant}${className ? ` ${className}` : ""}`}
+      {...props}
+    />
   );
-};
+}
